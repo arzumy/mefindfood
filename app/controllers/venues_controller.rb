@@ -4,7 +4,7 @@ class VenuesController < ApplicationController
 
   def search
     client = Foursquare2::Client.new(:client_id => ENV['FOURSQ_ID'], :client_secret => ENV['FOURSQ_SECRET'])
-    result = client.search_venues(ll: params[:position], v: '20111125')
+    result = client.search_venues(ll: params[:position], v: '20111125', categoryId: '4d4b7105d754a06374d81259', intent: "browse", radius: 10000)
     venues = []
     result.venues.each do |venue|
       begin

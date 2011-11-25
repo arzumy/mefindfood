@@ -39,7 +39,7 @@ describe VenuesController do
                   {name: "Fluent Space Near", location: {lat: 3.104252908499496, lng: 101.599490493536, distance: 100} },
                   {name: "Fluent Space", location: {lat: 3.104252908499496, lng: 101.599490493536, distance: 240} }
                 ]
-      stub_request(:get, "https://api.foursquare.com/v2/venues/search?client_id=ABCDEF&client_secret=ABCDEF&ll=3.106334,101.598912&v=20111125").to_return(body: body)
+      stub_request(:get, "https://api.foursquare.com/v2/venues/search?categoryId=4d4b7105d754a06374d81259&client_id=ABCDEF&client_secret=ABCDEF&intent=browse&ll=3.106334,101.598912&radius=10000&v=20111125").to_return(body: body)
       get :search, :position => "3.106334,101.598912"
       response.body.should == venues.to_json
     end
