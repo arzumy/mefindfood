@@ -10,7 +10,7 @@ Food.views.Viewport = Ext.extend Ext.TabPanel, {
       layout:
         pack: 'center'
   
-  initComponent: ->
+  initComponent: ()->
     @items = [
       {
         id: 'distance'

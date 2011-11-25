@@ -3,21 +3,6 @@ Food.views.Map = Ext.extend Ext.Panel, {
   layout: 'auto'
   initComponent: ->
     loader = new Ext.LoadMask Ext.getBody(), { msg: 'Loading...' }
-
-    searchbar = {
-      xtype:  'searchfield'
-      handler: @searchEvents
-      scope: @
-    }
-
-    toolbar = {
-      id: 'toolbar'
-      xtype: 'toolbar'
-      docked: 'top'
-      title:  'Food My Ass'
-      items: [{xtype: 'spacer'} ]
-    }
-
     image = new google.maps.MarkerImage(
       '../../images/point.png',
       new google.maps.Size(32, 31),
@@ -32,19 +17,15 @@ Food.views.Map = Ext.extend Ext.Panel, {
       new google.maps.Point(-5, 42)
     )
 
-    userLocationLat = window.POS.lat   
-    userLocationLng = window.POS.lng
-    position = new google.maps.LatLng(userLocationLat, userLocationLng)
-
-    location = new Ext.regModel 'location', {
-      fields: [ 'name', 'location' ]
-    }
+    # current user position
+    position = new google.maps.LatLng( window.POS.lat , window.POS.lng )
 
     map =  new Ext.Map {
       useCurrentLocation: true
+
       mapOptions:
         center : position
-        zoom : 15
+        zoom : 12
         scaleControl: true
         mapTypeId : google.maps.MapTypeId.ROADMAP
         navigationControl: true
@@ -58,8 +39,8 @@ Food.views.Map = Ext.extend Ext.Panel, {
           marker : new google.maps.Marker {
               position: position
               title : 'My Current Location'
-              # shadow: shadow
-              # icon  : image
+              shadow: shadow
+              icon  : image
           }
         },
         new Ext.plugin.GMap.Traffic({ hidden : true })
@@ -68,37 +49,48 @@ Food.views.Map = Ext.extend Ext.Panel, {
       listeners:
         mapRender: (component, map)->
           store = Food.stores.Locations
-          store.data.items.forEach( (item) ->
-            m = new google.maps.LatLng(item.data.location.lat, item.data.location.lng)
-            marker = new google.maps.Marker {
-                 position: m
-                 title : item.data.name
-                 map: map
-            }
-            google.maps.event.addListener marker, 'click', ->
-                 infowindow.open(map, marker)
+          store.proxy.url = window.POS.url
+          store.load( (records, error)-> 
+            records.forEach (record)->
+              m = new google.maps.LatLng( record.data.location.lat, record.data.location.lng )
+              marker = new google.maps.Marker {
+                   position: m
+                   title : record.data.name
+                   map: map
+              }
+              google.maps.event.addListener marker, 'click', ->
+                   new google.maps.infowindow.open(map, marker)
 
-            setTimeout( -> 
-              map.panTo(m) 
-            , 1000 )
+              # setTimeout( -> map.panTo(m) ,300)
           )
-          
     }
 
-    sheet = {
+    searchbar =
+      xtype:  'searchfield'
+      handler: @searchEvents
+      scope: @
+
+    toolbar =
+      id: 'toolbar'
+      xtype: 'toolbar'
+      docked: 'top'
+      title:  'Food My Ass'
+      items: [ {xtype: 'spacer'} ]
+
+
+    sheet =
       id: 'carousel'
       xtype: 'carousel'
       cardSwitchAnimation: 'fade'
       layout: 'fit'
       height: '100%'
-      items: [map]
-    }
+      items: [ map ]
 
     Ext.apply this, {
       scroll: false
       centered: true
-      dockedItems: [toolbar]
-      items: [map]
+      dockedItems: [ toolbar ]
+      items: [ map ]
     }
 
     Food.views.Map.superclass.initComponent.call @

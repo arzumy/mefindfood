@@ -1,74 +1,45 @@
 # List
-
-Food.models.Location = Ext.regModel 'Food.model.Location', {
-  fields: [ 'name', 'location']
-}
-
-Food.stores.Locations = new Ext.data.Store {
-  model: Food.models.Location
-  autoLoad: true
-  proxy: 
-    type: 'ajax'
-    url: "/venues/search?position="+ window.POS.lat+","+ window.POS.lng
-    reader:
-      type: 'json'
-}
-
 Food.views.List = Ext.extend Ext.Panel, {
   fullscreen: true
   initComponent: ->
-
-    list = {
+    # local declarations for items in component
+    list =
       xtype: 'list'
       itemTpl: '<tpl for=".">{name} <tpl for="location">{distance}<br>{lat}<br>{lng}</tp></tpl>'
-      store: Food.stores.Locations
       grouped: false
-    }
+      store: ''
+      listeners:
+        beforerender:->
+          store = Food.stores.Locations
+          store.proxy.url = window.POS.url
+          store.load()
+          @bindStore( store )
 
-    toggleView = {
+    toggleView =
       xtype: 'segmentedbutton'
-      items: [
-        {
-          text: 'Distance'
-          pressed: true
-        }
-        {
-          text: 'Popularity'
-        }
-      ]
+      items: [ { text: 'Distance', pressed: true }, { text: 'Popularity' } ]
       listeners: {
-        # toggle: (container, button , pressed)->
-        #   if button.text is 'Map'
-        #     Ext.getCmp('carousel').setActiveItem(0)
-        #   else
-        #     Ext.getCmp('carousel').setActiveItem(1)
+        toggle: (container, button , pressed)->
       }
-    }
 
-    toolbar = {
+    toolbar =
       docked: top
       xtype: 'toolbar'
       title: 'List'
-      items: [
-        {
-          xtype: 'spacer'
-        }, toggleView
-      ]
-    }
+      items: [ { xtype: 'spacer' }, toggleView ]
 
-    sheet = {
+    sheet =
       xtype: 'carousel'
       cardSwitchAnimation: 'fade'
       layout: 'fit'
       height: '100%'
-      items: [list]
-    }
+      items: [ list ]
 
     Ext.apply @, {
       id: 'list-food'
       layout: 'fit'
-      dockedItems: [toolbar]
-      items: [list]
+      dockedItems: [ toolbar ]
+      items: [ list ]
     }
 
     Food.views.List.superclass.initComponent.call @

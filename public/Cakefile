@@ -6,9 +6,9 @@ appFiles  = [
   # main
   'javascripts/application'
   # models
-
+  'javascripts/models/Location'
   # stores
-
+  "javascripts/stores/Locations"
   # views
   'javascripts/views/Viewport'
   'javascripts/views/List'
@@ -22,7 +22,7 @@ serverFiles = [
   'server'
 ]
 
-task 'application', 'Build single application file from source files', ->
+task 'build', 'Build single application file from source files', ->
   appContents = new Array remaining = appFiles.length
   for file, index in appFiles then do (file, index) ->
     fs.readFile "#{file}.coffee", 'utf8', (err, fileContents) ->
