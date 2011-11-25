@@ -37,6 +37,10 @@ group :test, :development do
   gem 'foreman'
 end
 
+group :test do
+  gem 'webmock'
+end
+
 group :development do
   gem 'tap'
   gem 'heroku'
