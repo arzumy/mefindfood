@@ -13,6 +13,6 @@ class VenuesController < ApplicationController
         next
       end
     end
-    render json: venues.to_json
+    render json: venues.sort_by {|venue| venue[:location][:distance]}.to_json
   end
 end
