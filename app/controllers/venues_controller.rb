@@ -8,7 +8,7 @@ class VenuesController < ApplicationController
     venues = []
     result.venues.each do |venue|
       begin
-        venues << {name: venue.name, location: {lat: venue.location.lat, lng: venue.location.lng, distance: venue.location.distance}}
+        venues << {name: venue.name, location: {address: venue.location.address, lat: venue.location.lat, lng: venue.location.lng, distance: venue.location.distance, postalCode: venue.location.postalCode, city: venue.location.city}, stats: {checkinsCount: venue.stats.checkinsCount, tipCount: venue.stats.tipCount}}
       rescue
         next
       end
