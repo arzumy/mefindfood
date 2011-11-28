@@ -1,14 +1,14 @@
 /*
 Syntax error: File to import not found or unreadable: compass/css3.
               Load path: /Users/fadzril/Sites/mefindfood/public/stylesheets/sass
-        on line 1 of /Users/fadzril/Sites/mefindfood/public/stylesheets/sass/../themes/stylesheets/sencha-touch/default/core/../_mixins.scss
-        from line 2 of /Users/fadzril/Sites/mefindfood/public/stylesheets/sass/../themes/stylesheets/sencha-touch/default/core/../_global.scss
-        from line 1 of /Users/fadzril/Sites/mefindfood/public/stylesheets/sass/../themes/stylesheets/sencha-touch/default/core/_core.scss
-        from line 2 of /Users/fadzril/Sites/mefindfood/public/stylesheets/sass/../themes/stylesheets/sencha-touch/default/_core.scss
-        from line 1 of /Users/fadzril/Sites/mefindfood/public/stylesheets/sass/../themes/stylesheets/sencha-touch/default/_all.scss
+        on line 1 of /Users/fadzril/Sites/mefindfood/public/stylesheets/sass/sencha-touch/default/core/../_mixins.scss
+        from line 2 of /Users/fadzril/Sites/mefindfood/public/stylesheets/sass/sencha-touch/default/core/../_global.scss
+        from line 1 of /Users/fadzril/Sites/mefindfood/public/stylesheets/sass/sencha-touch/default/core/_core.scss
+        from line 2 of /Users/fadzril/Sites/mefindfood/public/stylesheets/sass/sencha-touch/default/_core.scss
+        from line 1 of /Users/fadzril/Sites/mefindfood/public/stylesheets/sass/sencha-touch/default/_all.scss
         from line 1 of /Users/fadzril/Sites/mefindfood/public/stylesheets/sass/sencha-touch.scss
 
-1: @import '../themes/stylesheets/sencha-touch/default/all';
+1: @import 'sencha-touch/default/all';
 2: 
 3: @include sencha-panel;
 4: @include sencha-buttons;
@@ -16,11 +16,11 @@ Syntax error: File to import not found or unreadable: compass/css3.
 6: @include sencha-picker;
 
 Backtrace:
-/Users/fadzril/Sites/mefindfood/public/stylesheets/sass/../themes/stylesheets/sencha-touch/default/core/../_mixins.scss:1
-/Users/fadzril/Sites/mefindfood/public/stylesheets/sass/../themes/stylesheets/sencha-touch/default/core/../_global.scss:2
-/Users/fadzril/Sites/mefindfood/public/stylesheets/sass/../themes/stylesheets/sencha-touch/default/core/_core.scss:1
-/Users/fadzril/Sites/mefindfood/public/stylesheets/sass/../themes/stylesheets/sencha-touch/default/_core.scss:2
-/Users/fadzril/Sites/mefindfood/public/stylesheets/sass/../themes/stylesheets/sencha-touch/default/_all.scss:1
+/Users/fadzril/Sites/mefindfood/public/stylesheets/sass/sencha-touch/default/core/../_mixins.scss:1
+/Users/fadzril/Sites/mefindfood/public/stylesheets/sass/sencha-touch/default/core/../_global.scss:2
+/Users/fadzril/Sites/mefindfood/public/stylesheets/sass/sencha-touch/default/core/_core.scss:1
+/Users/fadzril/Sites/mefindfood/public/stylesheets/sass/sencha-touch/default/_core.scss:2
+/Users/fadzril/Sites/mefindfood/public/stylesheets/sass/sencha-touch/default/_all.scss:1
 /Users/fadzril/Sites/mefindfood/public/stylesheets/sass/sencha-touch.scss:1
 /Users/fadzril/.rvm/gems/ruby-1.9.2-p290@mefindfood/gems/sass-3.1.10/lib/sass/tree/import_node.rb:64:in `rescue in import'
 /Users/fadzril/.rvm/gems/ruby-1.9.2-p290@mefindfood/gems/sass-3.1.10/lib/sass/tree/import_node.rb:42:in `import'
@@ -113,4 +113,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: File to import not found or unreadable: compass/css3.\A               Load path: /Users/fadzril/Sites/mefindfood/public/stylesheets/sass\A         on line 1 of /Users/fadzril/Sites/mefindfood/public/stylesheets/sass/../themes/stylesheets/sencha-touch/default/core/../_mixins.scss\A         from line 2 of /Users/fadzril/Sites/mefindfood/public/stylesheets/sass/../themes/stylesheets/sencha-touch/default/core/../_global.scss\A         from line 1 of /Users/fadzril/Sites/mefindfood/public/stylesheets/sass/../themes/stylesheets/sencha-touch/default/core/_core.scss\A         from line 2 of /Users/fadzril/Sites/mefindfood/public/stylesheets/sass/../themes/stylesheets/sencha-touch/default/_core.scss\A         from line 1 of /Users/fadzril/Sites/mefindfood/public/stylesheets/sass/../themes/stylesheets/sencha-touch/default/_all.scss\A         from line 1 of /Users/fadzril/Sites/mefindfood/public/stylesheets/sass/sencha-touch.scss\A \A 1: @import '../themes/stylesheets/sencha-touch/default/all';\A 2: \A 3: @include sencha-panel;\A 4: @include sencha-buttons;\A 5: @include sencha-sheet;\A 6: @include sencha-picker;"; }
+  content: "Syntax error: File to import not found or unreadable: compass/css3.\A               Load path: /Users/fadzril/Sites/mefindfood/public/stylesheets/sass\A         on line 1 of /Users/fadzril/Sites/mefindfood/public/stylesheets/sass/sencha-touch/default/core/../_mixins.scss\A         from line 2 of /Users/fadzril/Sites/mefindfood/public/stylesheets/sass/sencha-touch/default/core/../_global.scss\A         from line 1 of /Users/fadzril/Sites/mefindfood/public/stylesheets/sass/sencha-touch/default/core/_core.scss\A         from line 2 of /Users/fadzril/Sites/mefindfood/public/stylesheets/sass/sencha-touch/default/_core.scss\A         from line 1 of /Users/fadzril/Sites/mefindfood/public/stylesheets/sass/sencha-touch/default/_all.scss\A         from line 1 of /Users/fadzril/Sites/mefindfood/public/stylesheets/sass/sencha-touch.scss\A \A 1: @import 'sencha-touch/default/all';\A 2: \A 3: @include sencha-panel;\A 4: @include sencha-buttons;\A 5: @include sencha-sheet;\A 6: @include sencha-picker;"; }

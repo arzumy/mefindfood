@@ -1,57 +1,27 @@
 /*
-Syntax error: File to import not found or unreadable: compass/css3.
+Syntax error: File to import not found or unreadable: sencha-touch/default/all.
               Load path: /Users/fadzril/Sites/mefindfood/public/stylesheets/sass
-        on line 1 of /Users/fadzril/Sites/mefindfood/public/stylesheets/sass/../themes/stylesheets/sencha-touch/default/core/../_mixins.scss
-        from line 2 of /Users/fadzril/Sites/mefindfood/public/stylesheets/sass/../themes/stylesheets/sencha-touch/default/core/../_global.scss
-        from line 1 of /Users/fadzril/Sites/mefindfood/public/stylesheets/sass/../themes/stylesheets/sencha-touch/default/core/_core.scss
-        from line 2 of /Users/fadzril/Sites/mefindfood/public/stylesheets/sass/../themes/stylesheets/sencha-touch/default/_core.scss
-        from line 1 of /Users/fadzril/Sites/mefindfood/public/stylesheets/sass/../themes/stylesheets/sencha-touch/default/_all.scss
-        from line 16 of /Users/fadzril/Sites/mefindfood/public/stylesheets/sass/bb6.scss
+        on line 16 of /Users/fadzril/Sites/mefindfood/public/stylesheets/sass/bb6.scss
 
-1: $include-highlights: false;
-2: $include-border-radius: false;
-3: 
-4: // Let's start with the basics
-5: $base-color:  #393F45;
-6: $active-color:  #06f;
+11: $list_bg_color: #111;
+12: $list_color: #eee;
+13: $list_header_bg_color: #aaa;
+14: $basic-slider: true;
+15: 
+16: @import 'sencha-touch/default/all';
+17: 
+18: @include sencha-panel;
+19: @include sencha-buttons;
+20: @include sencha-sheet;
+21: @include sencha-picker;
 
 Backtrace:
-/Users/fadzril/Sites/mefindfood/public/stylesheets/sass/../themes/stylesheets/sencha-touch/default/core/../_mixins.scss:1
-/Users/fadzril/Sites/mefindfood/public/stylesheets/sass/../themes/stylesheets/sencha-touch/default/core/../_global.scss:2
-/Users/fadzril/Sites/mefindfood/public/stylesheets/sass/../themes/stylesheets/sencha-touch/default/core/_core.scss:1
-/Users/fadzril/Sites/mefindfood/public/stylesheets/sass/../themes/stylesheets/sencha-touch/default/_core.scss:2
-/Users/fadzril/Sites/mefindfood/public/stylesheets/sass/../themes/stylesheets/sencha-touch/default/_all.scss:1
 /Users/fadzril/Sites/mefindfood/public/stylesheets/sass/bb6.scss:16
 /Users/fadzril/.rvm/gems/ruby-1.9.2-p290@mefindfood/gems/sass-3.1.10/lib/sass/tree/import_node.rb:64:in `rescue in import'
 /Users/fadzril/.rvm/gems/ruby-1.9.2-p290@mefindfood/gems/sass-3.1.10/lib/sass/tree/import_node.rb:42:in `import'
 /Users/fadzril/.rvm/gems/ruby-1.9.2-p290@mefindfood/gems/sass-3.1.10/lib/sass/tree/import_node.rb:25:in `imported_file'
 /Users/fadzril/.rvm/gems/ruby-1.9.2-p290@mefindfood/gems/sass-3.1.10/lib/sass/tree/visitors/perform.rb:147:in `rescue in visit_import'
 /Users/fadzril/.rvm/gems/ruby-1.9.2-p290@mefindfood/gems/sass-3.1.10/lib/sass/tree/visitors/perform.rb:152:in `visit_import'
-/Users/fadzril/.rvm/gems/ruby-1.9.2-p290@mefindfood/gems/sass-3.1.10/lib/sass/tree/visitors/base.rb:37:in `visit'
-/Users/fadzril/.rvm/gems/ruby-1.9.2-p290@mefindfood/gems/sass-3.1.10/lib/sass/tree/visitors/perform.rb:18:in `visit'
-/Users/fadzril/.rvm/gems/ruby-1.9.2-p290@mefindfood/gems/sass-3.1.10/lib/sass/tree/visitors/perform.rb:144:in `block in visit_import'
-/Users/fadzril/.rvm/gems/ruby-1.9.2-p290@mefindfood/gems/sass-3.1.10/lib/sass/tree/visitors/perform.rb:144:in `map'
-/Users/fadzril/.rvm/gems/ruby-1.9.2-p290@mefindfood/gems/sass-3.1.10/lib/sass/tree/visitors/perform.rb:144:in `visit_import'
-/Users/fadzril/.rvm/gems/ruby-1.9.2-p290@mefindfood/gems/sass-3.1.10/lib/sass/tree/visitors/base.rb:37:in `visit'
-/Users/fadzril/.rvm/gems/ruby-1.9.2-p290@mefindfood/gems/sass-3.1.10/lib/sass/tree/visitors/perform.rb:18:in `visit'
-/Users/fadzril/.rvm/gems/ruby-1.9.2-p290@mefindfood/gems/sass-3.1.10/lib/sass/tree/visitors/perform.rb:144:in `block in visit_import'
-/Users/fadzril/.rvm/gems/ruby-1.9.2-p290@mefindfood/gems/sass-3.1.10/lib/sass/tree/visitors/perform.rb:144:in `map'
-/Users/fadzril/.rvm/gems/ruby-1.9.2-p290@mefindfood/gems/sass-3.1.10/lib/sass/tree/visitors/perform.rb:144:in `visit_import'
-/Users/fadzril/.rvm/gems/ruby-1.9.2-p290@mefindfood/gems/sass-3.1.10/lib/sass/tree/visitors/base.rb:37:in `visit'
-/Users/fadzril/.rvm/gems/ruby-1.9.2-p290@mefindfood/gems/sass-3.1.10/lib/sass/tree/visitors/perform.rb:18:in `visit'
-/Users/fadzril/.rvm/gems/ruby-1.9.2-p290@mefindfood/gems/sass-3.1.10/lib/sass/tree/visitors/perform.rb:144:in `block in visit_import'
-/Users/fadzril/.rvm/gems/ruby-1.9.2-p290@mefindfood/gems/sass-3.1.10/lib/sass/tree/visitors/perform.rb:144:in `map'
-/Users/fadzril/.rvm/gems/ruby-1.9.2-p290@mefindfood/gems/sass-3.1.10/lib/sass/tree/visitors/perform.rb:144:in `visit_import'
-/Users/fadzril/.rvm/gems/ruby-1.9.2-p290@mefindfood/gems/sass-3.1.10/lib/sass/tree/visitors/base.rb:37:in `visit'
-/Users/fadzril/.rvm/gems/ruby-1.9.2-p290@mefindfood/gems/sass-3.1.10/lib/sass/tree/visitors/perform.rb:18:in `visit'
-/Users/fadzril/.rvm/gems/ruby-1.9.2-p290@mefindfood/gems/sass-3.1.10/lib/sass/tree/visitors/perform.rb:144:in `block in visit_import'
-/Users/fadzril/.rvm/gems/ruby-1.9.2-p290@mefindfood/gems/sass-3.1.10/lib/sass/tree/visitors/perform.rb:144:in `map'
-/Users/fadzril/.rvm/gems/ruby-1.9.2-p290@mefindfood/gems/sass-3.1.10/lib/sass/tree/visitors/perform.rb:144:in `visit_import'
-/Users/fadzril/.rvm/gems/ruby-1.9.2-p290@mefindfood/gems/sass-3.1.10/lib/sass/tree/visitors/base.rb:37:in `visit'
-/Users/fadzril/.rvm/gems/ruby-1.9.2-p290@mefindfood/gems/sass-3.1.10/lib/sass/tree/visitors/perform.rb:18:in `visit'
-/Users/fadzril/.rvm/gems/ruby-1.9.2-p290@mefindfood/gems/sass-3.1.10/lib/sass/tree/visitors/perform.rb:144:in `block in visit_import'
-/Users/fadzril/.rvm/gems/ruby-1.9.2-p290@mefindfood/gems/sass-3.1.10/lib/sass/tree/visitors/perform.rb:144:in `map'
-/Users/fadzril/.rvm/gems/ruby-1.9.2-p290@mefindfood/gems/sass-3.1.10/lib/sass/tree/visitors/perform.rb:144:in `visit_import'
 /Users/fadzril/.rvm/gems/ruby-1.9.2-p290@mefindfood/gems/sass-3.1.10/lib/sass/tree/visitors/base.rb:37:in `visit'
 /Users/fadzril/.rvm/gems/ruby-1.9.2-p290@mefindfood/gems/sass-3.1.10/lib/sass/tree/visitors/perform.rb:18:in `visit'
 /Users/fadzril/.rvm/gems/ruby-1.9.2-p290@mefindfood/gems/sass-3.1.10/lib/sass/tree/visitors/base.rb:53:in `block in visit_children'
@@ -113,4 +83,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: File to import not found or unreadable: compass/css3.\A               Load path: /Users/fadzril/Sites/mefindfood/public/stylesheets/sass\A         on line 1 of /Users/fadzril/Sites/mefindfood/public/stylesheets/sass/../themes/stylesheets/sencha-touch/default/core/../_mixins.scss\A         from line 2 of /Users/fadzril/Sites/mefindfood/public/stylesheets/sass/../themes/stylesheets/sencha-touch/default/core/../_global.scss\A         from line 1 of /Users/fadzril/Sites/mefindfood/public/stylesheets/sass/../themes/stylesheets/sencha-touch/default/core/_core.scss\A         from line 2 of /Users/fadzril/Sites/mefindfood/public/stylesheets/sass/../themes/stylesheets/sencha-touch/default/_core.scss\A         from line 1 of /Users/fadzril/Sites/mefindfood/public/stylesheets/sass/../themes/stylesheets/sencha-touch/default/_all.scss\A         from line 16 of /Users/fadzril/Sites/mefindfood/public/stylesheets/sass/bb6.scss\A \A 1: $include-highlights: false;\A 2: $include-border-radius: false;\A 3: \A 4: // Let's start with the basics\A 5: $base-color:  #393F45;\A 6: $active-color:  #06f;"; }
+  content: "Syntax error: File to import not found or unreadable: sencha-touch/default/all.\A               Load path: /Users/fadzril/Sites/mefindfood/public/stylesheets/sass\A         on line 16 of /Users/fadzril/Sites/mefindfood/public/stylesheets/sass/bb6.scss\A \A 11: $list_bg_color: #111;\A 12: $list_color: #eee;\A 13: $list_header_bg_color: #aaa;\A 14: $basic-slider: true;\A 15: \A 16: @import 'sencha-touch/default/all';\A 17: \A 18: @include sencha-panel;\A 19: @include sencha-buttons;\A 20: @include sencha-sheet;\A 21: @include sencha-picker;"; }
