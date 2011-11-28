@@ -27,4 +27,9 @@ Mefindfood::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  # assets enabling
+  # config.assets.enabled = false
+
+  config.assets.compile = false
 end
