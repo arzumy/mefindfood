@@ -22,7 +22,7 @@ Ext.regApplication({
   }
 });
 Food.models.Location = Ext.regModel('location', {
-  fields: ['name', 'location']
+  fields: ['name', 'popularity', 'location', 'stats']
 });
 Food.stores.Locations = new Ext.data.Store({
   model: 'location',
@@ -42,26 +42,28 @@ Food.views.Viewport = Ext.extend(Ext.TabPanel, {
   cardSwitchAnimation: 'slide',
   fullscreen: true,
   tabBar: {
+    centered: true,
     dock: 'bottom',
     scroll: false,
+    iconMask: true,
+    ui: 'dark',
     layout: {
       pack: 'center'
-    }
+    },
+    strech: true
   },
   initComponent: function() {
     this.items = [
       {
-        id: 'distance',
-        iconMask: true,
-        iconCls: 'star',
+        cls: 'nav-map',
         title: 'Map',
-        xtype: 'map'
+        xtype: 'map',
+        iconCls: 'compass2'
       }, {
-        id: 'list',
-        iconMask: true,
-        iconCls: 'star',
-        title: 'List View',
-        xtype: 'listfood'
+        cls: 'nav-list',
+        title: 'List',
+        xtype: 'listfood',
+        iconCls: 'list'
       }
     ];
     return Food.views.Viewport.superclass.initComponent.call(this);
@@ -84,12 +86,43 @@ Food.views.Viewport = Ext.extend(Ext.TabPanel, {
 Food.views.List = Ext.extend(Ext.Panel, {
   fullscreen: true,
   initComponent: function() {
-    var list, sheet, toggleView, toolbar;
+    var list, searchbar, tmpl, toggleView, toolbar;
+    tmpl = new Ext.XTemplate('<tpl for=".">\n  <div class="title">\n    {name}\n  </div>\n  <tpl for="location">\n    <div class="like"><span>{distance:this.toKM}</span> </div>\n  </tpl>\n  <tpl for="stats">\n    <div class="popular"><span>{checkinsCount} Likes</span></div>\n  </tpl>\n</tpl>', {
+      toKM: function(str) {
+        return (str.toPrecision(3)).toString().replace('e+3', '').replace('e+4', '') + 'KM';
+      }
+    });
     list = {
       xtype: 'list',
-      itemTpl: '<tpl for=".">{name} <tpl for="location">{distance}<br>{lat}<br>{lng}</tp></tpl>',
+      itemTpl: tmpl,
       grouped: false,
       store: '',
+      height: '100%',
+      plugins: [
+        new Ext.ux.touch.ListOptions({
+          enableSoundEffects: true,
+          allowMultiple: true,
+          hideOnScroll: true,
+          menuOptions: [
+            {
+              id: 'Team Icon Tapped',
+              cls: 'team',
+              html: 'team',
+              enabled: true
+            }, {
+              id: 'Favourite Icon Tapped',
+              cls: 'favourite',
+              text: 'favourites'
+            }, {
+              id: 'Cart Icon Tapped',
+              cls: 'shop'
+            }, {
+              id: 'Share Icon Tapped',
+              cls: 'share'
+            }
+          ]
+        })
+      ],
       listeners: {
         beforerender: function() {
           var store;
@@ -97,6 +130,9 @@ Food.views.List = Ext.extend(Ext.Panel, {
           store.proxy.url = window.POS.url;
           store.load();
           return this.bindStore(store);
+        },
+        menuoptiontap: function(data, record) {
+          return Ext.Msg.alert('List Option Tapped', data.id + ' for ' + record.data.name + ' ' + record.data.location.distance, Ext.emptyFn);
         }
       }
     };
@@ -111,28 +147,46 @@ Food.views.List = Ext.extend(Ext.Panel, {
         }
       ],
       listeners: {
-        toggle: function(container, button, pressed) {}
+        toggle: function(container, button, pressed) {
+          list.store = Food.stores.Locations;
+          list.store.proxy.url = window.POS.url;
+          switch (button.text) {
+            case 'Distance':
+              list.store.sort('distance', 'DESC');
+              break;
+            case 'Popularity':
+              list.store.sort('popularity', 'DESC');
+          }
+          return list.store.load();
+        }
       }
     };
     toolbar = {
-      docked: top,
+      dock: 'top',
       xtype: 'toolbar',
-      title: 'List',
+      defaults: {
+        iconMask: true,
+        ui: 'plain'
+      },
+      layout: {
+        pack: 'center'
+      },
       items: [
         {
-          xtype: 'spacer'
+          text: 'Sort by'
         }, toggleView
       ]
     };
-    sheet = {
-      xtype: 'carousel',
-      cardSwitchAnimation: 'fade',
-      layout: 'fit',
-      height: '100%',
-      items: [list]
+    searchbar = {
+      xtype: 'searchfield',
+      name: 'search',
+      label: 'search',
+      handler: this.searchEvents,
+      scope: this
     };
     Ext.apply(this, {
-      id: 'list-food',
+      cls: 'list-panel',
+      centered: true,
       layout: 'fit',
       dockedItems: [toolbar],
       items: [list]
@@ -144,18 +198,18 @@ Ext.reg('listfood', Food.views.List);
 Food.views.Map = Ext.extend(Ext.Panel, {
   layout: 'auto',
   initComponent: function() {
-    var image, loader, map, position, searchbar, shadow, sheet, toolbar;
+    var image, loader, map, position, shadow, toolbar;
     loader = new Ext.LoadMask(Ext.getBody(), {
       msg: 'Loading...'
     });
-    image = new google.maps.MarkerImage('../../images/point.png', new google.maps.Size(32, 31), new google.maps.Point(0, 0), new google.maps.Point(16, 31));
+    image = new google.maps.MarkerImage('../../images/icons/pin1.png', new google.maps.Size(40, 52), new google.maps.Point(0, 0), new google.maps.Point(16, 52));
     shadow = new google.maps.MarkerImage('../../images/shadow.png', new google.maps.Size(64, 52), new google.maps.Point(0, 0), new google.maps.Point(-5, 42));
     position = new google.maps.LatLng(window.POS.lat, window.POS.lng);
     map = new Ext.Map({
       useCurrentLocation: true,
       mapOptions: {
         center: position,
-        zoom: 12,
+        zoom: 13,
         scaleControl: true,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         navigationControl: true,
@@ -170,7 +224,6 @@ Food.views.Map = Ext.extend(Ext.Panel, {
           marker: new google.maps.Marker({
             position: position,
             title: 'My Current Location',
-            shadow: shadow,
             icon: image
           })
         }, new Ext.plugin.GMap.Traffic({
@@ -184,26 +237,33 @@ Food.views.Map = Ext.extend(Ext.Panel, {
           store.proxy.url = window.POS.url;
           return store.load(function(records, error) {
             return records.forEach(function(record) {
-              var m, marker;
+              var c, i, m, marker, p;
+              c = "<div class='p'> " + record.data.name + " </div>";
+              p = {
+                maxWidth: 300,
+                content: c,
+                minHeight: 80,
+                arrowPosition: 30,
+                arrowStyle: 2,
+                borderRadius: 3,
+                borderWidth: 1
+              };
               m = new google.maps.LatLng(record.data.location.lat, record.data.location.lng);
+              i = new InfoBubble(p);
               marker = new google.maps.Marker({
                 position: m,
                 title: record.data.name,
-                map: map
+                map: map,
+                icon: new google.maps.MarkerImage('../../images/icons/pin2.png', new google.maps.Size(40, 52), new google.maps.Point(0, 0), new google.maps.Point(16, 52))
               });
               return google.maps.event.addListener(marker, 'click', function() {
-                return new google.maps.infowindow.open(map, marker);
+                return i.open(map, marker);
               });
             });
           });
         }
       }
     });
-    searchbar = {
-      xtype: 'searchfield',
-      handler: this.searchEvents,
-      scope: this
-    };
     toolbar = {
       id: 'toolbar',
       xtype: 'toolbar',
@@ -212,24 +272,23 @@ Food.views.Map = Ext.extend(Ext.Panel, {
       items: [
         {
           xtype: 'spacer'
+        }, {
+          iconCls: 'star',
+          ui: 'plain'
         }
       ]
-    };
-    sheet = {
-      id: 'carousel',
-      xtype: 'carousel',
-      cardSwitchAnimation: 'fade',
-      layout: 'fit',
-      height: '100%',
-      items: [map]
     };
     Ext.apply(this, {
       scroll: false,
       centered: true,
-      dockedItems: [toolbar],
       items: [map]
     });
     return Food.views.Map.superclass.initComponent.call(this);
+  },
+  searchEvents: function(e) {
+    var value;
+    value = e.currentTarget.value();
+    return console.log(new RegExt(value || '.*', 'i'));
   }
 });
 Ext.reg('map', Food.views.Map);

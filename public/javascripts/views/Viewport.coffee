@@ -5,26 +5,27 @@ Food.views.Viewport = Ext.extend Ext.TabPanel, {
     cardSwitchAnimation : 'slide'
     fullscreen: true
     tabBar:
+      centered: true
       dock: 'bottom'
       scroll: false
+      iconMask: true
+      ui: 'dark'
       layout:
-        pack: 'center'
-  
+        pack:'center'
+      strech: true
   initComponent: ()->
     @items = [
       {
-        id: 'distance'
-        iconMask: true
-        iconCls: 'star'
+        cls: 'nav-map'
         title: 'Map'
         xtype: 'map'
+        iconCls: 'compass2'
       }
       {
-        id: 'list'
-        iconMask: true
-        iconCls: 'star'
-        title: 'List View'
+        cls: 'nav-list'
+        title: 'List'
         xtype: 'listfood'
+        iconCls: 'list'
       }
     ]
 

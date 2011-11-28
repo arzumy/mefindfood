@@ -4,10 +4,10 @@ Food.views.Map = Ext.extend Ext.Panel, {
   initComponent: ->
     loader = new Ext.LoadMask Ext.getBody(), { msg: 'Loading...' }
     image = new google.maps.MarkerImage(
-      '../../images/point.png',
-      new google.maps.Size(32, 31),
+      '../../images/icons/pin1.png',
+      new google.maps.Size(40, 52),
       new google.maps.Point(0,0),
-      new google.maps.Point(16, 31)
+      new google.maps.Point(16, 52)
     )
 
     shadow = new google.maps.MarkerImage(
@@ -25,7 +25,7 @@ Food.views.Map = Ext.extend Ext.Panel, {
 
       mapOptions:
         center : position
-        zoom : 12
+        zoom : 13
         scaleControl: true
         mapTypeId : google.maps.MapTypeId.ROADMAP
         navigationControl: true
@@ -39,7 +39,6 @@ Food.views.Map = Ext.extend Ext.Panel, {
           marker : new google.maps.Marker {
               position: position
               title : 'My Current Location'
-              shadow: shadow
               icon  : image
           }
         },
@@ -52,48 +51,66 @@ Food.views.Map = Ext.extend Ext.Panel, {
           store.proxy.url = window.POS.url
           store.load( (records, error)-> 
             records.forEach (record)->
+              c = "<div class='p'> #{record.data.name} </div>"
+              p =
+                maxWidth      : 300
+                content       : c
+                minHeight        : 80
+                arrowPosition : 30
+                arrowStyle    : 2
+                borderRadius  : 3
+                borderWidth   : 1
+                # arrowStyle    : 2 
+                # arrowSize     : 10,
+                # backgroundClassName: 'phoney',
+                # shadowStyle: 1,
+                # padding: 0,
+                # backgroundColor: 'rgb(57,57,57)',
+                # borderRadius: 4,
+                # borderWidth: 1,
+                # borderColor: '#2c2c2c',
+                # disableAutoPan: true,
+                # hideCloseButton: false,
+                # arrowPosition: 30,
+                # maxWidth: 300
               m = new google.maps.LatLng( record.data.location.lat, record.data.location.lng )
+              i = new InfoBubble p
+
               marker = new google.maps.Marker {
-                   position: m
-                   title : record.data.name
-                   map: map
+                position: m
+                title : record.data.name
+                map: map
+                icon: new google.maps.MarkerImage(
+                  '../../images/icons/pin2.png',
+                  new google.maps.Size(40, 52),
+                  new google.maps.Point(0,0),
+                  new google.maps.Point(16, 52)
+                  )
               }
-              google.maps.event.addListener marker, 'click', ->
-                   new google.maps.infowindow.open(map, marker)
+              google.maps.event.addListener marker, 'click', -> i.open(map, marker)
 
               # setTimeout( -> map.panTo(m) ,300)
           )
     }
-
-    searchbar =
-      xtype:  'searchfield'
-      handler: @searchEvents
-      scope: @
 
     toolbar =
       id: 'toolbar'
       xtype: 'toolbar'
       docked: 'top'
       title:  'Food My Ass'
-      items: [ {xtype: 'spacer'} ]
-
-
-    sheet =
-      id: 'carousel'
-      xtype: 'carousel'
-      cardSwitchAnimation: 'fade'
-      layout: 'fit'
-      height: '100%'
-      items: [ map ]
+      items: [ {xtype: 'spacer'}, {iconCls: 'star', ui: 'plain'} ]
 
     Ext.apply this, {
       scroll: false
       centered: true
-      dockedItems: [ toolbar ]
       items: [ map ]
     }
 
     Food.views.Map.superclass.initComponent.call @
+
+  searchEvents: (e)->
+    value = e.currentTarget.value()
+    console.log new RegExt(value or '.*', 'i')
 }
 
 Ext.reg('map', Food.views.Map);
